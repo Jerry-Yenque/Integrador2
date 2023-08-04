@@ -1,0 +1,8 @@
+// Yenque
+res/values/themes.xml  No pude cambiar el color al statusBar (seccion 2 ep. 6)
+
+LoginContent.kt Ln 65  no existe backgroundColor como parametro para cambiar
+el color al card (seccion 2 ep. 8); existe método.
+
+ui.theme  colores no igual al ejemplo  (seccion 2 ep. 6)
+// End Yenque

@@ -10,15 +10,19 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = Red500, //Default Purple80
+    secondary = Color.White, //Default PurpleGrey80
+    tertiary = Red700, //Default Pink80
+    // Added
+    background = Darkgray900,
+    onPrimary = Color.White
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -45,10 +49,11 @@ fun IntegratorTheme(
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
+        // Below comment, solution on comments in seccion 2 ep 6. (fix preview)
+        //dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+        //    val context = LocalContext.current
+        //    if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        //}
 
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
