@@ -5,4 +5,6 @@ LoginContent.kt Ln 65  no existe backgroundColor como parametro para cambiar
 el color al card (seccion 2 ep. 8); existe método.
 
 ui.theme  colores no igual al ejemplo  (seccion 2 ep. 6)
+
+components/DefaultButton Ln 32. ButtonDefaults.buttonColors doesn't have backgroundColor property, instead i tried containerColor (seccion 2 ep 10.)
 // End Yenque
