@@ -19,15 +19,14 @@ import com.grof.integrator.presentation.ui.theme.Red500
 
 @Composable
 fun DefaultButton(
+    modifier: Modifier,
     text: String,
     onClick: () -> Unit,
     color: Color = Red500,
     icon: ImageVector =Icons.Default.ArrowForward
 ) {
     Button(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 0.dp, vertical = 45.dp),
+        modifier = modifier,
         onClick = { onClick() },
         colors = ButtonDefaults.buttonColors(containerColor = color) // In example has attribute backgroundColor, now it doesn't seem have it, instead i tried containerColor (seccion 2 ep 10.)
     ) {

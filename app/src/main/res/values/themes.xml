@@ -2,7 +2,7 @@
 <resources>
 
     <style name="Theme.Integrator" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:statusBarColor">@color/black</item>
     </style>
     <!-- Above was modified i.e it seems no changes, find it on seccion 2 ep. 6, default <style name="Theme.Integrator" parent="android:Theme.Material.Light.NoActionBar" /> -->
 

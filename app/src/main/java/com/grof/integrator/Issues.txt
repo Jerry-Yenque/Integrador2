@@ -1,14 +1,15 @@
 // Yenque
 res/values/themes.xml  No pude cambiar el color al statusBar (seccion 2 ep. 6)
 
-LoginContent.kt Ln 65  no existe backgroundColor como parametro para cambiar
-el color al card (seccion 2 ep. 8); existe método.
+SOLVED: LoginContent.kt Ln 93  no existe backgroundColor como parametro para cambiar el color al card (seccion 2 ep. 8); instead colors = CardDefaults.cardColors(containerColor = Darkgray500)
 
-ui.theme  colores no igual al ejemplo  (seccion 2 ep. 6)
+ui.theme  variables de colores no igual al ejemplo  (seccion 2 ep. 6). Is primaryVariant equal tertiary?? in example primaryVariant = Red700
 
-components/DefaultButton Ln 32. ButtonDefaults.buttonColors doesn't have backgroundColor property, instead i tried containerColor (seccion 2 ep 10.)
+SOLVED: components/DefaultButton Ln 32. ButtonDefaults.buttonColors doesn't have backgroundColor property, instead i tried containerColor (seccion 2 ep 10.)
 Seccion 2 ep 12. Routing - to review and underestanding!!
 
-DefaultTopAppBar.kt it doesn't have parameter backgroundColor, seccion 2 ep 13.
-SignupScreen.kt DefaultTopAppBar and Text in content overlaping, Text color? seccion 2 ep 13.
+Fucking SOLVED: DefaultTopAppBar.kt it doesn't have parameter backgroundColor instead use colors = TopAppBarDefaults.smallTopAppBarColors(containerColor=), seccion 2 ep 13.
+SOLVED: SignupScreen.kt DefaultTopAppBar and Text in content overlaping, seccion 2 ep 13. Inherit PaddingValues
+
+CHANGE: SignupContent.kt new parameter added(paddinValues) to inherit TopBar padding
 // End Yenque

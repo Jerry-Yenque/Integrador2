@@ -15,10 +15,10 @@ import androidx.core.view.WindowCompat
 private val DarkColorScheme = darkColorScheme(
     primary = Red500, //Default Purple80
     secondary = Color.White, //Default PurpleGrey80
-    tertiary = Red700, //Default Pink80
+    tertiary = Red700, //Default Pink80  ; is this primaryVariant? in example primaryVariant = Red700
     // Added
     background = Darkgray900,
-    onPrimary = Color.White
+    onPrimary = Color.White // It applies to text like on buttons
 )
 
 private val LightColorScheme = lightColorScheme(
