@@ -33,129 +33,122 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.grof.integrator.R
 import com.grof.integrator.presentation.components.DefaultButton
 import com.grof.integrator.presentation.components.DefaultTextField
+import com.grof.integrator.presentation.screens.signUp.SignupViewModel
 import com.grof.integrator.presentation.ui.theme.Darkgray500
 import com.grof.integrator.presentation.ui.theme.IntegratorTheme
 import com.grof.integrator.presentation.ui.theme.Red500
 
 @Composable
 //fun SignupContent(paddingValues: PaddingValues) {
-fun SignupContent() {
+fun SignupContent(viewModel: SignupViewModel = hiltViewModel()) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            //.padding(paddingValues),
+        //.padding(paddingValues),
         //.wrapContentHeight() Content Center Vertical
         //.background(Color.White),
     ) {
-        BoxHeader()
-        CardForm()
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(230.dp)
+                .background(Red500)
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Spacer(modifier = Modifier.height(50.dp))
+                Image(
+                    modifier = Modifier
+                        .height(150.dp)
+                        .width(300.dp),
+                    painter = painterResource(id = R.drawable.unfv),
+                    contentDescription = "unfv logo"
+                )
+            }
+        }
+        Card(
+            modifier = Modifier
+                .padding(start = 40.dp, end = 40.dp, top = 200.dp),
+            colors = CardDefaults.cardColors(containerColor = Darkgray500)  //SOLVED: .background(color = DarkGray500) //In example = ,backgroundColor = DarkGray500  including ',' seccion 2 ep. 8
+        ) {
+            Column(
+                modifier = Modifier.padding(horizontal = 20.dp)
+            ) {
+                Text(
+                    modifier = Modifier.padding(top = 40.dp, bottom = 0.dp, start = 0.dp, end = 0.dp), //without top = applies to all sides
+                    text = "REGISTRO",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(
+                    text = "Ingresa tus datos para continuar",
+                    fontSize = 12.sp,
+                    color = Color.Gray
+                )
+                DefaultTextField(
+                    modifier = Modifier.padding(top = 5.dp), // 25.dp in example
+                    value = viewModel.email.value,
+                    onValueChange = {viewModel.email.value = it},
+                    label = "Correo Institucional",
+                    icon = Icons.Default.Person, //.Person instead .Email
+                    keyboardType = KeyboardType.Email,
+                    errorMsg = viewModel.emailErrMsg.value,
+                    validateField = {viewModel.validateEmail()}
+                )
+                DefaultTextField(
+                    modifier = Modifier.padding(top = 0.dp),
+                    value = viewModel.password.value,
+                    onValueChange = {viewModel.password.value = it},
+                    label = "Contraseña",
+                    icon = Icons.Default.Lock,
+                    hideText = true,
+                    errorMsg = viewModel.passwordErrMsg.value,
+                    validateField = {viewModel.validatePassword()}
+                )
+                DefaultTextField(
+                    modifier = Modifier.padding(top = 0.dp),
+                    value = viewModel.confirmPassword.value,
+                    onValueChange = {viewModel.confirmPassword.value = it},
+                    label = "Confirmar Contraseña",
+                    icon = Icons.Outlined.Lock,
+                    hideText = true,
+                    errorMsg = viewModel.confirmPasswordErrMsg.value,
+                    validateField = {viewModel.validateConfirmPassword()}
+                )
+                DefaultButton(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 15.dp),
+                    text = "Registrarse",
+                    onClick = { /*TODO*/ },
+                    errorMsg = "", // Added to avoid errMsg has no value
+                    enabled = viewModel.isEnabledLoginButton
+                )
+            }
+        }
     }
 }
 
-@Composable
-fun BoxHeader() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(230.dp)
-            .background(Red500)
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Spacer(modifier = Modifier.height(50.dp))
-            Image(
-                modifier = Modifier
-                    .height(150.dp)
-                    .width(300.dp),
-                painter = painterResource(id = R.drawable.unfv),
-                contentDescription = "unfv logo"
-            )
-        }
-    }
-}
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun CardForm() {
-    var email by remember {
-        mutableStateOf("")
-    }
-    var password by remember {
-        mutableStateOf("")
-    }
-    var confirmPassword by remember {
-        mutableStateOf("")
-    }
-    Card(
-        modifier = Modifier
-            .padding(start = 40.dp, end = 40.dp, top = 200.dp),
-        colors = CardDefaults.cardColors(containerColor = Darkgray500)  //SOLVED: .background(color = DarkGray500) //In example = ,backgroundColor = DarkGray500  including ',' seccion 2 ep. 8
-    ) {
-        Column(
-            modifier = Modifier.padding(horizontal = 20.dp)
-        ) {
-            Text(
-                modifier = Modifier.padding(top = 40.dp, bottom = 0.dp, start = 0.dp, end = 0.dp), //without top = applies to all sides
-                text = "REGISTRO",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(
-                text = "Ingresa tus datos para continuar",
-                fontSize = 12.sp,
-                color = Color.Gray
-            )
-            DefaultTextField(
-                modifier = Modifier.padding(top = 5.dp),
-                value = email,
-                onValueChange = {email = it},
-                label = "Correo Institucional",
-                icon = Icons.Default.Person, //.Person instead .Email
-                keyboardType = KeyboardType.Email
-            )
-            DefaultTextField(
-                modifier = Modifier.padding(top = 5.dp),
-                value = password,
-                onValueChange = {password = it},
-                label = "Contraseña",
-                icon = Icons.Default.Lock,
-                hideText = true
-            )
-            DefaultTextField(
-                modifier = Modifier.padding(top = 5.dp),
-                value = confirmPassword,
-                onValueChange = {confirmPassword = it},
-                label = "Confirmar Contraseña",
-                icon = Icons.Outlined.Lock,
-                hideText = true
-            )
-            DefaultButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 15.dp),
-                text = "Registrarse",
-                onClick = { /*TODO*/ },
-                errorMsg = "", // Added to avoid errMsg has no value
-            )
-        }
-    }
-}
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun PreviewSignupContent() {
-    IntegratorTheme(darkTheme = true) {
-        // A surface container using the 'background' color from the theme
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
-            //SignupContent(paddingValues = PaddingValues(top = 30.dp))
-            SignupContent()
-        }
-    }
-}
+// Los Preview NO son compatibles con Injection de dependencias, hay manera, no mostrada en el ejemplo
+// Se borra en el ejemplo, se deja comentado.
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun PreviewSignupContent() {
+//    IntegratorTheme(darkTheme = true) {
+//        // A surface container using the 'background' color from the theme
+//        Surface(
+//            modifier = Modifier.fillMaxSize(),
+//            color = MaterialTheme.colorScheme.background
+//        ) {
+//            //SignupContent(paddingValues = PaddingValues(top = 30.dp))
+//            SignupContent()
+//        }
+//    }
+//}

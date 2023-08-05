@@ -1,4 +1,6 @@
 // Yenque
+TO KEEP IN MIND: I made a mistake with package signUp, good practices and in the example is in lower case, i put in camel case :'v, if you refactor it, Dragger hilt throw an error.
+
 res/values/themes.xml  No pude cambiar el color al statusBar (seccion 2 ep. 6)
 
 SOLVED: LoginContent.kt Ln 93  no existe backgroundColor como parametro para cambiar el color al card (seccion 2 ep. 8); instead colors = CardDefaults.cardColors(containerColor = Darkgray500)
@@ -11,5 +13,5 @@ Seccion 2 ep 12. Routing - to review and underestanding!!
 Fucking SOLVED: DefaultTopAppBar.kt it doesn't have parameter backgroundColor instead use colors = TopAppBarDefaults.smallTopAppBarColors(containerColor=), seccion 2 ep 13.
 SOLVED: SignupScreen.kt DefaultTopAppBar and Text in content overlaping, seccion 2 ep 13. Inherit PaddingValues
 
-CHANGE: SignupContent.kt new parameter added(paddinValues) to inherit TopBar padding
+CHANGE TO EVALUATE: I avoid this change by using padding on elements, this change is commented and not implemented-> SignupContent.kt new parameter added(paddinValues) to inherit TopBar padding
 // End Yenque
