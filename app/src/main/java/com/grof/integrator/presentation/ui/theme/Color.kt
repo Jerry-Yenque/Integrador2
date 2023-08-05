@@ -1,4 +1,4 @@
-package com.grof.integrator.ui.theme
+package com.grof.integrator.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 // DarkTheme

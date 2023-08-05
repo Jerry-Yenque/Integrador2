@@ -1,4 +1,4 @@
-package com.grof.integrator.screens.login.components
+package com.grof.integrator.presentation.screens.login.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,9 +15,7 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,11 +32,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.grof.integrator.R
-import com.grof.integrator.components.DefaultButton
-import com.grof.integrator.components.DefaultTextField
-import com.grof.integrator.ui.theme.Darkgray500
-import com.grof.integrator.ui.theme.IntegratorTheme
-import com.grof.integrator.ui.theme.Red500
+import com.grof.integrator.presentation.components.DefaultButton
+import com.grof.integrator.presentation.components.DefaultTextField
+import com.grof.integrator.presentation.ui.theme.Darkgray500
+import com.grof.integrator.presentation.ui.theme.IntegratorTheme
+import com.grof.integrator.presentation.ui.theme.Red500
 
 @Composable
 fun LoginContent() {

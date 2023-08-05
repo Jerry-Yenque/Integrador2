@@ -1,4 +1,4 @@
-package com.grof.integrator.components
+package com.grof.integrator.presentation.components
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.grof.integrator.ui.theme.Red500
+import com.grof.integrator.presentation.ui.theme.Red500
 
 @Composable
 fun DefaultButton(

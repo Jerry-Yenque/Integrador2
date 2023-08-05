@@ -1,4 +1,4 @@
-package com.grof.integrator.components
+package com.grof.integrator.presentation.components
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
