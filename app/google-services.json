@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "142928712789",
+    "project_id": "integrator-9878b",
+    "storage_bucket": "integrator-9878b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:142928712789:android:998cbe4fbefc8aaa41f0dc",
+        "android_client_info": {
+          "package_name": "com.grof.integrator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "142928712789-fa4nurim7n3jpg1s99ocgjgkudghln4i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCe0Lqw6sQyDW3qx3RHXfC1efRiMVNDcc4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "142928712789-fa4nurim7n3jpg1s99ocgjgkudghln4i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

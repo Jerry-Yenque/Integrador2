@@ -3,7 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     //Dagger Hilt
     id 'kotlin-kapt'
-    id 'com.google.dagger.hilt.android' // <- end Dagger Hilt
+    id 'com.google.dagger.hilt.android'// <- end Dagger Hilt
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -66,6 +67,7 @@ dependencies {
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0-rc01"
     //DaggerHilt
     implementation "com.google.dagger:hilt-android:2.44"
+    implementation 'com.google.firebase:firebase-auth-ktx:21.1.0' // firebase
     kapt "com.google.dagger:hilt-compiler:2.44" // <- end Dagger Hilt
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
