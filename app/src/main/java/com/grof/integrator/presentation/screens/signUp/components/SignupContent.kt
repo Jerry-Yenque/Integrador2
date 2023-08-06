@@ -1,5 +1,6 @@
 package com.grof.integrator.presentation.screens.signUp.components
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -16,6 +17,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -27,6 +29,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -34,9 +37,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.grof.integrator.R
+import com.grof.integrator.domain.model.Response
 import com.grof.integrator.presentation.components.DefaultButton
 import com.grof.integrator.presentation.components.DefaultTextField
+import com.grof.integrator.presentation.navigation.AppScreen
 import com.grof.integrator.presentation.screens.signUp.SignupViewModel
 import com.grof.integrator.presentation.ui.theme.Darkgray500
 import com.grof.integrator.presentation.ui.theme.IntegratorTheme
@@ -44,7 +50,8 @@ import com.grof.integrator.presentation.ui.theme.Red500
 
 @Composable
 //fun SignupContent(paddingValues: PaddingValues) {
-fun SignupContent(viewModel: SignupViewModel = hiltViewModel()) {
+fun SignupContent(navController: NavHostController, viewModel: SignupViewModel = hiltViewModel()) {
+    val signupFLow = viewModel.signupFlow.collectAsState()
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -127,11 +134,34 @@ fun SignupContent(viewModel: SignupViewModel = hiltViewModel()) {
                         .fillMaxWidth()
                         .padding(vertical = 15.dp),
                     text = "Registrarse",
-                    onClick = { /*TODO*/ },
+                    onClick = { viewModel.onSignUp() },
                     errorMsg = "", // Added to avoid errMsg has no value
                     enabled = viewModel.isEnabledLoginButton
                 )
             }
+        }
+    }
+    signupFLow.value.let {
+        when(it) {
+            Response.Loading -> {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ){
+                    CircularProgressIndicator()
+                }
+            }
+            is Response.Success -> {
+                LaunchedEffect(Unit) {
+                    navController.popBackStack(AppScreen.Login.route, inclusive = true)
+                    navController.navigate(route = AppScreen.Profile.route)
+                }
+            }
+            is Response.Failure -> {
+                Toast.makeText(LocalContext.current, it.exception?.message ?: "Error unknow", Toast.LENGTH_SHORT).show()
+            }
+
+            else -> {}
         }
     }
 }

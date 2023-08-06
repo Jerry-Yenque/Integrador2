@@ -6,6 +6,8 @@ import com.grof.integrator.domain.repository.AuthRepository
 import com.grof.integrator.domain.use_cases.auth.AuthUseCases
 import com.grof.integrator.domain.use_cases.auth.GetCurrentUser
 import com.grof.integrator.domain.use_cases.auth.Login
+import com.grof.integrator.domain.use_cases.auth.Logout
+import com.grof.integrator.domain.use_cases.auth.SignUp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,6 +25,8 @@ object AppModule {
     @Provides
     fun provideAuthUseCases(repository: AuthRepository) = AuthUseCases(
         getCurrentUser = GetCurrentUser(repository),
-        login = Login(repository)
+        login = Login(repository),
+        logout = Logout(repository),
+        signup = SignUp(repository)
     )
 }

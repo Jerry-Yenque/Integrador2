@@ -18,7 +18,7 @@ private val DarkColorScheme = darkColorScheme(
     tertiary = Red700, //Default Pink80  ; is this primaryVariant? in example primaryVariant = Red700
     // Added
     background = Darkgray900,
-    onPrimary = Color.White // It applies to text like on buttons
+    onPrimary = Color.Black // It applies to text like on buttons, se cambio de white a black as temporal solution
 )
 
 private val LightColorScheme = lightColorScheme(

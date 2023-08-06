@@ -144,7 +144,9 @@ fun LoginContent(navController: NavHostController, viewModel: LoginViewModel = h
             }
             is Response.Success -> {
                 LaunchedEffect(Unit) {
-                    navController.navigate(route = AppScreen.Profile.route)
+                    navController.navigate(route = AppScreen.Profile.route) {
+                        popUpTo(AppScreen.Login.route) { inclusive = true }
+                    }
                 }
                 //Toast.makeText(LocalContext.current, "Usuario logeado", Toast.LENGTH_LONG).show() Para control!
             }

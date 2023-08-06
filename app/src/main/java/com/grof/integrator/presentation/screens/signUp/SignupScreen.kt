@@ -33,7 +33,7 @@ fun SignupScreen(navController: NavHostController) {
         },
         content = {
                   //SignupContent(paddingValues = it)
-                  SignupContent()
+                  SignupContent(navController)
         },
         bottomBar = {}
     )
