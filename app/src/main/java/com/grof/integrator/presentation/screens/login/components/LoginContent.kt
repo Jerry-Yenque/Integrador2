@@ -154,9 +154,7 @@ fun LoginContent(navController: NavHostController, viewModel: LoginViewModel = h
                 Toast.makeText(LocalContext.current, it.exception?.message ?: "Error desconocido", Toast.LENGTH_LONG).show()
             }
             // Agregado para evitar error, no en el ejemplo
-            else -> {
-                Toast.makeText(LocalContext.current, "Test Mode", Toast.LENGTH_SHORT).show()
-            }
+            else -> {}
         }
     }
 }

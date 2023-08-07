@@ -69,13 +69,14 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
         }
         Spacer(modifier = Modifier.height(55.dp))
         Text(
-            text = "Nombre",
+            // Para evitar tanta evaluacion en tiempo real, podemos almacenar el código como columna en BD, SIN IF LA APP SE CIERRA
+            text = if (viewModel.userData.email.length >= 10) viewModel.userData.email.substring(0, 10) else viewModel.userData.email, // Añadido substring para obtener el código, falta mejorar regexp para 10 digitos antes de dominio
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             fontStyle = FontStyle.Italic
         )
         Text(
-            text = "Correo Institucional",
+            text = viewModel.userData.email,
             fontSize = 15.sp,
             fontStyle = FontStyle.Italic
         )
