@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.grof.integrator.presentation.screens.login.components.Login
 import com.grof.integrator.presentation.screens.login.components.LoginBottomBar
 import com.grof.integrator.presentation.screens.login.components.LoginContent
 import com.grof.integrator.presentation.ui.theme.IntegratorTheme
@@ -28,6 +29,8 @@ fun LoginScreen(navController: NavHostController) {
             LoginBottomBar(navController)
         }
     )
+    // MAnejar el estado de peticion
+    Login(navController = navController)
 }
 
 @Preview(showBackground = true, showSystemUi = true)

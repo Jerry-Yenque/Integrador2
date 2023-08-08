@@ -1,15 +1,14 @@
-package com.grof.integrator.presentation.screens.signUp.components
+package com.grof.integrator.presentation.screens.profile_edit.components
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
@@ -17,40 +16,28 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.grof.integrator.R
-import com.grof.integrator.domain.model.Response
 import com.grof.integrator.presentation.components.DefaultButton
 import com.grof.integrator.presentation.components.DefaultTextField
-import com.grof.integrator.presentation.navigation.AppScreen
+import com.grof.integrator.presentation.screens.profile_edit.ProfileEditViewModel
 import com.grof.integrator.presentation.screens.signUp.SignupViewModel
 import com.grof.integrator.presentation.ui.theme.Darkgray500
-import com.grof.integrator.presentation.ui.theme.IntegratorTheme
 import com.grof.integrator.presentation.ui.theme.Red500
 
 @Composable
-//fun SignupContent(paddingValues: PaddingValues) {
-fun SignupContent(navController: NavHostController, viewModel: SignupViewModel = hiltViewModel()) {
+fun ProfileEditContent(navController: NavHostController, viewModel: ProfileEditViewModel = hiltViewModel()) {
     val state = viewModel.state
     Box(
         modifier = Modifier
@@ -69,13 +56,11 @@ fun SignupContent(navController: NavHostController, viewModel: SignupViewModel =
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(modifier = Modifier.height(50.dp))
+                Spacer(modifier = Modifier.height(80.dp))
                 Image(
-                    modifier = Modifier
-                        .height(150.dp)
-                        .width(300.dp),
-                    painter = painterResource(id = R.drawable.unfv),
-                    contentDescription = "unfv logo"
+                    modifier = Modifier.size(115.dp),
+                    painter = painterResource(id = R.drawable.user),
+                    contentDescription = "User picture"
                 )
             }
         }
@@ -89,7 +74,7 @@ fun SignupContent(navController: NavHostController, viewModel: SignupViewModel =
             ) {
                 Text(
                     modifier = Modifier.padding(top = 40.dp, bottom = 0.dp, start = 0.dp, end = 0.dp), //without top = applies to all sides
-                    text = "REGISTRO",
+                    text = "ASISTENCIA",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -101,61 +86,23 @@ fun SignupContent(navController: NavHostController, viewModel: SignupViewModel =
                 )
                 DefaultTextField(
                     modifier = Modifier.padding(top = 5.dp), // 25.dp in example
-                    value = state.email,
-                    onValueChange = {viewModel.onEmailInput(it)},
-                    label = "Correo Institucional",
+                    value = state.email, // Mostramos email
+                    onValueChange = {viewModel.onUsernameInput(it)},
+                    label = "Nombre",
                     icon = Icons.Default.Person, //.Person instead .Email
                     keyboardType = KeyboardType.Email,
-                    errorMsg = viewModel.emailErrMsg,
-                    validateField = {viewModel.validateEmail()}
-                )
-                DefaultTextField(
-                    modifier = Modifier.padding(top = 0.dp),
-                    value = state.password,
-                    onValueChange = {viewModel.onPasswordInput(it)},
-                    label = "Contraseña",
-                    icon = Icons.Default.Lock,
-                    hideText = true,
-                    errorMsg = viewModel.passwordErrMsg,
-                    validateField = {viewModel.validatePassword()}
-                )
-                DefaultTextField(
-                    modifier = Modifier.padding(top = 0.dp),
-                    value = state.confirmPassword,
-                    onValueChange = {viewModel.onConfirmPasswordInput(it)},
-                    label = "Confirmar Contraseña",
-                    icon = Icons.Outlined.Lock,
-                    hideText = true,
-                    errorMsg = viewModel.confirmPasswordErrMsg,
-                    validateField = {viewModel.validateConfirmPassword()}
+                    errorMsg = viewModel.usernameErrMsg,
+                    validateField = {viewModel.validateUsername()}
                 )
                 DefaultButton(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 15.dp),
-                    text = "Registrarse",
-                    onClick = { viewModel.onSignUp() },
+                        .padding(top = 20.dp, bottom = 40.dp),
+                    text = "Actualizar datos",
+                    onClick = {  },
                     errorMsg = "", // Added to avoid errMsg has no value
-                    enabled = viewModel.isEnabledLoginButton
                 )
             }
         }
     }
 }
-
-// Los Preview NO son compatibles con Injection de dependencias, hay manera, no mostrada en el ejemplo
-// Se borra en el ejemplo, se deja comentado.
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//fun PreviewSignupContent() {
-//    IntegratorTheme(darkTheme = true) {
-//        // A surface container using the 'background' color from the theme
-//        Surface(
-//            modifier = Modifier.fillMaxSize(),
-//            color = MaterialTheme.colorScheme.background
-//        ) {
-//            //SignupContent(paddingValues = PaddingValues(top = 30.dp))
-//            SignupContent()
-//        }
-//    }
-//}
