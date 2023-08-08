@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.grof.integrator.presentation.components.DefaultTopBar
 import com.grof.integrator.presentation.screens.profile_edit.components.ProfileEditContent
+import com.grof.integrator.presentation.screens.profile_edit.components.Update
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -17,6 +18,7 @@ fun ProfileEditScreen(
     navController: NavHostController,
     user: String
 ) {
+    Log.d("ProfileEditScreen", "Usuario: $user")
     Scaffold(
         topBar = {
             DefaultTopBar(
@@ -30,4 +32,5 @@ fun ProfileEditScreen(
         },
         bottomBar = {}
     )
+    Update()
 }

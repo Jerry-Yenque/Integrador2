@@ -86,7 +86,7 @@ fun ProfileEditContent(navController: NavHostController, viewModel: ProfileEditV
                 )
                 DefaultTextField(
                     modifier = Modifier.padding(top = 5.dp), // 25.dp in example
-                    value = state.email, // Mostramos email
+                    value = state.username, // Mostramos email
                     onValueChange = {viewModel.onUsernameInput(it)},
                     label = "Nombre",
                     icon = Icons.Default.Person, //.Person instead .Email
@@ -99,7 +99,7 @@ fun ProfileEditContent(navController: NavHostController, viewModel: ProfileEditV
                         .fillMaxWidth()
                         .padding(top = 20.dp, bottom = 40.dp),
                     text = "Actualizar datos",
-                    onClick = {  },
+                    onClick = { viewModel.onUpdate() },
                     errorMsg = "", // Added to avoid errMsg has no value
                 )
             }
