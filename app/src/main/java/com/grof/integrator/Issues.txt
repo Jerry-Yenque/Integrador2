@@ -16,4 +16,6 @@ SOLVED: SignupScreen.kt DefaultTopAppBar and Text in content overlaping, seccion
 CHANGE TO EVALUATE: I avoid this change by using padding on elements, this change is commented and not implemented-> SignupContent.kt new parameter added(paddinValues) to inherit TopBar padding
 
 Botton Editar con fondo blanco no cambia el text color a negro, solucion temporal en ui.theme/Theme onPrimary se cambio de white a black
+
+FILES UPDATE TO ALLOW CAMERA: ProfileUpdateContent.kt imagePicker to select a picture on our device
 // End Yenque

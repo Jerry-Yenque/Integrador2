@@ -1,7 +1,10 @@
-package com.grof.integrator.presentation.screens.profile_edit.components
+package com.grof.integrator.presentation.screens.profile_update.components
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,17 +13,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -28,17 +32,35 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
 import com.grof.integrator.R
 import com.grof.integrator.presentation.components.DefaultButton
 import com.grof.integrator.presentation.components.DefaultTextField
-import com.grof.integrator.presentation.screens.profile_edit.ProfileEditViewModel
-import com.grof.integrator.presentation.screens.signUp.SignupViewModel
+import com.grof.integrator.presentation.screens.profile_update.ProfileUpdateViewModel
 import com.grof.integrator.presentation.ui.theme.Darkgray500
 import com.grof.integrator.presentation.ui.theme.Red500
+import com.grof.integrator.presentation.utils.ComposeFileProvider
 
 @Composable
-fun ProfileEditContent(navController: NavHostController, viewModel: ProfileEditViewModel = hiltViewModel()) {
+fun ProfileEditContent(navController: NavHostController, viewModel: ProfileUpdateViewModel = hiltViewModel()) {
     val state = viewModel.state
+
+    val imagePicker = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent(),
+        onResult = {
+            it?.let {
+                viewModel.onGalleryResult(it) }
+        }
+    )
+
+    val cameraLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.TakePicture(),
+        onResult = {
+            viewModel.onCameraResult(it)
+        }
+    )
+
+    val context = LocalContext.current
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -57,11 +79,27 @@ fun ProfileEditContent(navController: NavHostController, viewModel: ProfileEditV
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Spacer(modifier = Modifier.height(80.dp))
-                Image(
-                    modifier = Modifier.size(115.dp),
-                    painter = painterResource(id = R.drawable.user),
-                    contentDescription = "User picture"
-                )
+                if(viewModel.hasImage && viewModel.imageUri != null) {
+                    AsyncImage(
+                        modifier = Modifier.height(100.dp).clip(CircleShape),
+                        model = viewModel.imageUri,
+                        contentDescription = "Selected image"
+                    )
+                }
+                else {
+                    Image(
+                        modifier = Modifier
+                            .size(115.dp)
+                            .clickable {
+//                                imagePicker.launch("image/*")
+                                val uri = ComposeFileProvider.getImageUri(context)
+                                viewModel.imageUri = uri
+                                cameraLauncher.launch(uri)
+                            },
+                        painter = painterResource(id = R.drawable.user),
+                        contentDescription = "User picture"
+                    )
+                }
             }
         }
         Card(

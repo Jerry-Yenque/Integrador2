@@ -1,4 +1,4 @@
-package com.grof.integrator.presentation.screens.profile_edit
+package com.grof.integrator.presentation.screens.profile_update
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -7,8 +7,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.grof.integrator.presentation.components.DefaultTopBar
-import com.grof.integrator.presentation.screens.profile_edit.components.ProfileEditContent
-import com.grof.integrator.presentation.screens.profile_edit.components.Update
+import com.grof.integrator.presentation.screens.profile_update.components.ProfileEditContent
+import com.grof.integrator.presentation.screens.profile_update.components.Update
 
 
 @OptIn(ExperimentalMaterial3Api::class)

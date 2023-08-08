@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.grof.integrator.presentation.screens.login.LoginScreen
 import com.grof.integrator.presentation.screens.profile.ProfileScreen
-import com.grof.integrator.presentation.screens.profile_edit.ProfileEditScreen
+import com.grof.integrator.presentation.screens.profile_update.ProfileEditScreen
 import com.grof.integrator.presentation.screens.signUp.SignupScreen
 
 @Composable

@@ -1,6 +1,6 @@
-package com.grof.integrator.presentation.screens.profile_edit
+package com.grof.integrator.presentation.screens.profile_update
 
-data class ProfileEditState(
+data class ProfileUpdateState(
     val username: String = "",
     val email: String = "" // Añadido viendo ep 32. 12:18min
 )
