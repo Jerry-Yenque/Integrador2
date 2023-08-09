@@ -2,6 +2,7 @@ package com.grof.integrator.presentation.screens.profile_update
 
 import android.content.Context
 import android.widget.Toast
+import androidx.activity.compose.ReportDrawn
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -16,6 +17,7 @@ import com.grof.integrator.presentation.utils.ResultingActivityHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,41 +31,54 @@ class ProfileUpdateViewModel @Inject constructor(
         private set
     var usernameErrMsg by mutableStateOf("")
         private set
-    val userString = savedStateHandle.get<String>("user")
-    val user = User.fromJson(userString!!)
+
+    val data = savedStateHandle.get<String>("user")
+    val user = User.fromJson(data!!)
 
     // Response
     var updateResponse by mutableStateOf<Response<Boolean>?>(null)
         private set
+    var saveImageResponse by mutableStateOf<Response<String>?>(null)
+        private set
 
-    // Image
-    var imageUri by mutableStateOf("")
+    // File
+    var file: File? = null
 
     val resultingActivityHandler = ResultingActivityHandler()
 
     init {
         // Set arguments
-        state = state.copy(username = user.username, email = user.email) // email added to see his content ep32 12:18 <- less than this
+        state = state.copy(username = user.username, image = user.image ) // email added to see his content ep32 12:18 <- less than this.. UPDATE at 7:09 38. email = user.email was removed
+    }
+
+    fun saveImage() = viewModelScope.launch {
+        if(file != null) {
+            saveImageResponse = Response.Loading
+            val result = usersUseCases.saveImage(file!!)
+            saveImageResponse = result
+        }
     }
 
     fun pickImage() = viewModelScope.launch {
         val result = resultingActivityHandler.getContent("images/*")
         if(result != null) {
-            imageUri = result.toString()
+            file = ComposeFileProvider.createFileFromUri(context, result)
+            state = state.copy(image = result.toString())
         }
     }
     fun takePhoto() = viewModelScope.launch {
         val result = resultingActivityHandler.takePicturePreview()
         if(result != null) {
-            imageUri = ComposeFileProvider.getPathFromBitmap(context, result)
+            state = state.copy(image = ComposeFileProvider.getPathFromBitmap(context, result))
+            file = File(state.image)
         }
     }
 
-    fun onUpdate() {
+    fun onUpdate(url: String) {
         var myUser = User(
             id = user.id,
             username = state.username,
-            image = ""
+            image = url
         )
         update(myUser)
     }

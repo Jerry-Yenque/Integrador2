@@ -5,6 +5,8 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.grof.integrator.core.Constants.USERS
 import com.grof.integrator.data.repository.AuthRepositoryImpl
 import com.grof.integrator.data.repository.UsersRepositoryImpl
@@ -17,6 +19,7 @@ import com.grof.integrator.domain.use_cases.auth.Logout
 import com.grof.integrator.domain.use_cases.auth.SignUp
 import com.grof.integrator.domain.use_cases.users.Create
 import com.grof.integrator.domain.use_cases.users.GetUserById
+import com.grof.integrator.domain.use_cases.users.SaveImage
 import com.grof.integrator.domain.use_cases.users.Update
 import com.grof.integrator.domain.use_cases.users.UsersUseCases
 import dagger.Module
@@ -29,6 +32,10 @@ import dagger.hilt.components.SingletonComponent
 object AppModule {
     @Provides
     fun provideFirebaseFirestore(): FirebaseFirestore = Firebase.firestore
+    @Provides
+    fun provideFirebaseStorage(): FirebaseStorage = FirebaseStorage.getInstance()
+    @Provides
+    fun provideStorageUsersRef(storage: FirebaseStorage): StorageReference = storage.reference.child((USERS))
     @Provides
     fun provideUsersRef(db: FirebaseFirestore): CollectionReference = db.collection(USERS)
     @Provides
@@ -51,6 +58,7 @@ object AppModule {
     fun provideUsersUseCases(repository: UsersRepository) = UsersUseCases(
         create = Create(repository),
         getUserById = GetUserById(repository),
-        update = Update(repository)
+        update = Update(repository),
+        saveImage = SaveImage(repository)
     )
 }

@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.grof.integrator.presentation.components.DefaultTopBar
 import com.grof.integrator.presentation.screens.profile_update.components.ProfileEditContent
+import com.grof.integrator.presentation.screens.profile_update.components.SaveImage
 import com.grof.integrator.presentation.screens.profile_update.components.Update
 
 
@@ -32,5 +33,6 @@ fun ProfileEditScreen(
         },
         bottomBar = {}
     )
+    SaveImage()
     Update()
 }

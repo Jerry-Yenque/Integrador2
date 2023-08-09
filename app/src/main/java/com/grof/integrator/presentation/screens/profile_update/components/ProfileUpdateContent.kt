@@ -69,7 +69,7 @@ fun ProfileEditContent(navController: NavHostController, viewModel: ProfileUpdat
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Spacer(modifier = Modifier.height(80.dp))
-                if(viewModel.imageUri != "") {
+                if(viewModel.state.image != "") {
                     AsyncImage(
                         modifier = Modifier
                             .height(100.dp)
@@ -78,7 +78,7 @@ fun ProfileEditContent(navController: NavHostController, viewModel: ProfileUpdat
                             .clickable {
                                        dialogState.value = true
                             },
-                        model = viewModel.imageUri,
+                        model = viewModel.state.image,
                         contentDescription = "Selected image",
                         contentScale = ContentScale.Crop
                     )
@@ -131,7 +131,7 @@ fun ProfileEditContent(navController: NavHostController, viewModel: ProfileUpdat
                         .fillMaxWidth()
                         .padding(top = 20.dp, bottom = 40.dp),
                     text = "Actualizar datos",
-                    onClick = { viewModel.onUpdate() },
+                    onClick = { viewModel.saveImage() },
                     errorMsg = "", // Added to avoid errMsg has no value
                 )
             }
