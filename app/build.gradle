@@ -69,11 +69,27 @@ dependencies {
     implementation "com.google.dagger:hilt-android:2.44"
     kapt "com.google.dagger:hilt-compiler:2.44" // <- end Dagger Hilt
 
+<<<<<<< HEAD
     //Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.2.2"))
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation 'com.google.firebase:firebase-auth-ktx:21.1.0' // firebase
 
+=======
+    // Firebase firestore
+    // Import the BoM for the Firebase platform
+    implementation(platform("com.google.firebase:firebase-bom:32.2.2"))
+    // Declare the dependency for the Cloud Firestore library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation 'com.google.firebase:firebase-auth-ktx:21.1.0' // firebase auth
+
+    // Json
+    implementation "com.google.code.gson:gson:2.9.0"
+
+    // Async image
+    implementation("io.coil-kt:coil-compose:2.4.0")
+>>>>>>> 01ae4c61941f87435dd7b0f27f9382e8d1106175
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'

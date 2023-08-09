@@ -69,13 +69,14 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
         }
         Spacer(modifier = Modifier.height(55.dp))
         Text(
-            text = "Nombre",
-            fontSize = 20.sp,
+            // Para evitar tanta evaluacion en tiempo real, podemos almacenar el código como columna en BD, SIN IF LA APP SE CIERRA
+            //text = if (viewModel.userData.email.length >= 10) viewModel.userData.email.substring(0, 10) else viewModel.userData.email, // Añadido substring para obtener el código, falta mejorar regexp para 10 digitos antes de dominio
+            text = viewModel.userData.username, // Below will work to show student code, now we're showing username            fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             fontStyle = FontStyle.Italic
         )
         Text(
-            text = "Correo Institucional",
+            text = viewModel.userData.email,
             fontSize = 15.sp,
             fontStyle = FontStyle.Italic
         )
@@ -86,7 +87,9 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
             errorMsg = "",
             color = Color.White,
             icon = Icons.Default.Person,
-            onClick = {
+            onClick = { navController.navigate(
+                    route = AppScreen.ProfileEdit.passUser(viewModel.userData.toJson())
+                )
             }
         )
         Spacer(modifier = Modifier.height(5.dp))

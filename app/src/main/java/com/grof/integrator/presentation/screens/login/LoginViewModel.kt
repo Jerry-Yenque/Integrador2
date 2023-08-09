@@ -15,57 +15,72 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val authUseCases: AuthUseCases): ViewModel() {
-    // Email
-    var email: MutableState<String> = mutableStateOf("")
-    var isEmailValid: MutableState<Boolean> = mutableStateOf(false)
-    var emailErrMsg: MutableState<String> = mutableStateOf("")
+    // STATE FORM
+    var state by mutableStateOf(LoginState())
+        private set
 
-    // Password
-    var password: MutableState<String> = mutableStateOf("")
-    var isPasswordValid: MutableState<Boolean> = mutableStateOf(false)
-    var passwordErrMsg: MutableState<String> = mutableStateOf("")
+    // Email Validations
+    var isEmailValid by mutableStateOf(false)
+        private set
+    var emailErrMsg by mutableStateOf("")
+        private set
 
-    // Button
+    // Password Validations
+    var isPasswordValid by mutableStateOf(false)
+        private set
+    var passwordErrMsg by mutableStateOf("")
+        private set
+
+    // Enable Button
     var isEnabledLoginButton = false
 
-    private val _loginFlow = MutableStateFlow<Response<FirebaseUser>?>(null)
-    val loginFlow: StateFlow<Response<FirebaseUser>?> = _loginFlow
+    // Login Response
+    var loginResponse by mutableStateOf<Response<FirebaseUser>?>(null)
 
     val currentUser = authUseCases.getCurrentUser()
     init {
         if (currentUser != null) { // Sesion iniciada
-            _loginFlow.value = Response.Success(currentUser)
+            loginResponse = Response.Success(currentUser)
         }
     }
+
+    fun onEmailInput(email: String) {
+        state = state.copy(email = email)
+    }
+
+    fun onPasswordInput(password: String) {
+        state = state.copy(password = password)
+    }
+
     fun login() = viewModelScope.launch {
-        _loginFlow.value = Response.Loading
-        val result = authUseCases.login(email.value, password.value)
-        _loginFlow.value = result
+        loginResponse = Response.Loading
+        val result = authUseCases.login(state.email, state.password)
+        loginResponse = result
     }
     fun enabledLoginButton() {
-        isEnabledLoginButton = isEmailValid.value && isPasswordValid.value
+        isEnabledLoginButton = isEmailValid && isPasswordValid
     }
 
     fun validateEmail() {
-        if (email.value.matches(Regex(".*@unfv\\.edu\\.pe$"))) { //i.e In example is Patterns.EMAIL_ADDRESS.matcher(email.value).matches(); instead i use regular expresion to match unfv domain.
-            isEmailValid.value = true
-            emailErrMsg.value = ""
+        if (state.email.matches(Regex(".*@unfv\\.edu\\.pe$"))) { //i.e In example is Patterns.EMAIL_ADDRESS.matcher(email.value).matches(); instead i use regular expresion to match unfv domain.
+            isEmailValid = true
+            emailErrMsg = ""
         }
         else {
-            isEmailValid.value = false
-            emailErrMsg.value = "El email no corresponde con el dominio @unfv.edu.pe"
+            isEmailValid = false
+            emailErrMsg = "El email no corresponde con el dominio @unfv.edu.pe"
         }
         enabledLoginButton()
     }
 
     fun validatePassword() {
-        if (password.value.length >= 6) { // Firebase pide al menos 6 caracteres
-            isPasswordValid.value = true
-            passwordErrMsg.value = ""
+        if (state.password.length >= 6) { // Firebase pide al menos 6 caracteres
+            isPasswordValid = true
+            passwordErrMsg = ""
         }
         else {
-            isPasswordValid.value = false
-            passwordErrMsg.value = "Al menos 6 caracteres"
+            isPasswordValid = false
+            passwordErrMsg = "Al menos 6 caracteres"
         }
         enabledLoginButton()
     }

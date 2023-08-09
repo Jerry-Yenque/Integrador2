@@ -51,7 +51,7 @@ import com.grof.integrator.presentation.ui.theme.Red500
 @Composable
 //fun SignupContent(paddingValues: PaddingValues) {
 fun SignupContent(navController: NavHostController, viewModel: SignupViewModel = hiltViewModel()) {
-    val signupFLow = viewModel.signupFlow.collectAsState()
+    val state = viewModel.state
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -101,32 +101,32 @@ fun SignupContent(navController: NavHostController, viewModel: SignupViewModel =
                 )
                 DefaultTextField(
                     modifier = Modifier.padding(top = 5.dp), // 25.dp in example
-                    value = viewModel.email.value,
-                    onValueChange = {viewModel.email.value = it},
+                    value = state.email,
+                    onValueChange = {viewModel.onEmailInput(it)},
                     label = "Correo Institucional",
                     icon = Icons.Default.Person, //.Person instead .Email
                     keyboardType = KeyboardType.Email,
-                    errorMsg = viewModel.emailErrMsg.value,
+                    errorMsg = viewModel.emailErrMsg,
                     validateField = {viewModel.validateEmail()}
                 )
                 DefaultTextField(
                     modifier = Modifier.padding(top = 0.dp),
-                    value = viewModel.password.value,
-                    onValueChange = {viewModel.password.value = it},
+                    value = state.password,
+                    onValueChange = {viewModel.onPasswordInput(it)},
                     label = "Contraseña",
                     icon = Icons.Default.Lock,
                     hideText = true,
-                    errorMsg = viewModel.passwordErrMsg.value,
+                    errorMsg = viewModel.passwordErrMsg,
                     validateField = {viewModel.validatePassword()}
                 )
                 DefaultTextField(
                     modifier = Modifier.padding(top = 0.dp),
-                    value = viewModel.confirmPassword.value,
-                    onValueChange = {viewModel.confirmPassword.value = it},
+                    value = state.confirmPassword,
+                    onValueChange = {viewModel.onConfirmPasswordInput(it)},
                     label = "Confirmar Contraseña",
                     icon = Icons.Outlined.Lock,
                     hideText = true,
-                    errorMsg = viewModel.confirmPasswordErrMsg.value,
+                    errorMsg = viewModel.confirmPasswordErrMsg,
                     validateField = {viewModel.validateConfirmPassword()}
                 )
                 DefaultButton(
@@ -141,6 +141,7 @@ fun SignupContent(navController: NavHostController, viewModel: SignupViewModel =
             }
         }
     }
+<<<<<<< HEAD
     signupFLow.value.let {
         when(it) {
             Response.Loading -> {
@@ -165,6 +166,8 @@ fun SignupContent(navController: NavHostController, viewModel: SignupViewModel =
             else -> {}
         }
     }
+=======
+>>>>>>> 01ae4c61941f87435dd7b0f27f9382e8d1106175
 }
 
 // Los Preview NO son compatibles con Injection de dependencias, hay manera, no mostrada en el ejemplo
