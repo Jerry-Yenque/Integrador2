@@ -17,3 +17,9 @@ CHANGE TO EVALUATE: I avoid this change by using padding on elements, this chang
 
 Botton Editar con fondo blanco no cambia el text color a negro, solucion temporal en ui.theme/Theme onPrimary se cambio de white a black
 // End Yenque
+
+//Cristhian
+   M6.c27
+    Create data base in firebase
+        java/ domain/ repository/ UserRepository
+//End Cristhian

@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.grof.integrator.domain.model.Response
 import com.grof.integrator.domain.model.User
 import com.grof.integrator.domain.use_cases.auth.AuthUseCases
+import com.grof.integrator.domain.use_cases.users.UsersUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignupViewModel @Inject constructor(private val authUseCases: AuthUseCases): ViewModel() {
+class SignupViewModel @Inject constructor(private val authUseCases: AuthUseCases,private val usersUseCases: UsersUseCases): ViewModel() {
     // Here Goes username or what you want
 
     // Email
@@ -39,19 +40,28 @@ class SignupViewModel @Inject constructor(private val authUseCases: AuthUseCases
     private val _signupFlow = MutableStateFlow<Response<FirebaseUser>?>(null)
     val signupFlow: StateFlow<Response<FirebaseUser>?> = _signupFlow
 
+    var user = User()
+
     fun onSignUp() {
-        val user = User(
-            username = "", //username.value no implementado ep23. min 7:53
-            email = email.value,
-            password = password.value
-        )
+        user.username = ""
+        user.email = email.value
+        user.password = password.value
         signup(user)
     }
+
+    fun createUser() = viewModelScope.launch {
+        user.id = authUseCases.getCurrentUser()!!.uid
+        usersUseCases.create(user)
+    }
+
     fun signup(user: User) = viewModelScope.launch {
         _signupFlow.value = Response.Loading
         val result = authUseCases.signup(user)
         _signupFlow.value = result
     }
+
+
+
     fun enabledLoginButton() {
         isEnabledLoginButton =
             isEmailValid.value &&
