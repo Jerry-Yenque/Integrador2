@@ -105,9 +105,10 @@ fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
                         .fillMaxWidth()
                         .padding(vertical = 40.dp),
                     text = "INICIAR SESIÓN",
+                    errorMsg = "",
                     onClick = {
-                        Log.d("LoginContent", "Email: ${viewModel.email.value}")
-                        Log.d("LoginContent", "Password: ${viewModel.password.value}")
+//                        Log.d("LoginContent", "Email: ${viewModel.email.value}")
+//                        Log.d("LoginContent", "Password: ${viewModel.password.value}")
                     })
             }
         }

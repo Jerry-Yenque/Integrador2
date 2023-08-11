@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.grof.integrator.presentation.screens.attendance.AttendanceScreen
 import com.grof.integrator.presentation.screens.login.LoginScreen
 import com.grof.integrator.presentation.screens.signUp.SignupScreen
 
@@ -11,8 +12,17 @@ import com.grof.integrator.presentation.screens.signUp.SignupScreen
 fun AppNavigation(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = AppScreen.Login.route
+        startDestination = AppScreen.Attendance.route
     ) {
+
+        composable(route = AppScreen.Attendance.route) {
+            AttendanceScreen(navController)
+        }
+//        composable(route = AppScreen.About.route) {
+//            AboutScreen(navController)
+//        }
+
+        // BELOW DEPRECATED
         composable(route = AppScreen.Login.route) {
             LoginScreen(navController)
         }

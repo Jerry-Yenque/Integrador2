@@ -7,7 +7,7 @@ val PurpleGrey80 = Color(0xFFCCC2DC)
 val Pink80 = Color(0xFFEFB8C8)
 // From example video
 val Red200 = Color(0xFFff6f60)
-val Red500 = Color(0xFFf24d45)
+val Red500 = Color(0xFFFFA500) // 0xFFf24d45
 val Red700 = Color(0xFFab000d)
 val Darkgray500 = Color(0xFF272727)
 val Darkgray700 = Color(0xFF202020)

@@ -142,6 +142,7 @@ fun CardForm() {
                     .fillMaxWidth()
                     .padding(vertical = 15.dp),
                 text = "Registrarse",
+                errorMsg = "",
                 onClick = { /*TODO*/ })
         }
     }
